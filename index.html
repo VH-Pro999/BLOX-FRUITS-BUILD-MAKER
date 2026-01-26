@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>BLOX FRUITS BUILD MAKER</title>
+<style>
+body{background:#0f172a;color:#e5e7eb;font-family:Arial,sans-serif;text-align:center}
+h1{margin:20px 0}
+button{background:#22c55e;border:none;padding:12px 24px;font-size:16px;border-radius:12px;cursor:pointer;font-weight:bold;margin:10px}
+button:hover{background:#16a34a}
+.container{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:20px}
+.card{background:#020617;border-radius:16px;padding:14px;cursor:pointer;transition:.2s}
+.card.locked{outline:3px solid #22c55e;cursor:default}
+.card img{width:100px;height:100px;object-fit:contain}
+.tipo{color:#38bdf8;font-size:14px}
+#estado{margin:10px;font-size:14px;color:#94a3b8}
+#resultado{margin:20px;font-size:20px;display:none}
+#creditos{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:#020617;
+  color:#22c55e;
+  padding:20px 40px;
+  font-size:18px;
+  border-radius:16px;
+  z-index:1000;
+  box-shadow:0 0 20px #22c55e;
+  text-align:center;
+}
+</style>
+</head>
+<body>
+
+<div id="creditos">
+🎮 Código hecho por ChatGPT<br>
+📚 Imágenes de Blox Fruits Wiki
+</div>
+
+<style>
+#creditos{
+  position:fixed;
+  top:80%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:#020617;
+  color:#22c55e;
+  padding:15px 30px;
+  font-size:16px;
+  border-radius:12px;
+  z-index:1000;
+  box-shadow:0 0 15px #22c55e;
+  text-align:center;
+  opacity:1;
+  transition:opacity 1s;
+}
+</style>
+
+<h1>🎰 BLOX FRUITS BUILD MAKER 🎰</h1>
+<div id="estado">Presiona START para comenzar</div>
+<button id="btn" onclick="accion()">START</button>
+
+<div class="container">
+ <div class="card" id="melee" onclick="seleccionar('melee')"></div>
+ <div class="card" id="fruit" onclick="seleccionar('fruit')"></div>
+ <div class="card" id="sword" onclick="seleccionar('sword')"></div>
+ <div class="card" id="gun" onclick="seleccionar('gun')"></div>
+ <div class="card" id="race" onclick="seleccionar('race')"></div>
+</div>
+
+<div id="resultado"></div>
+
+<script>
+let estado="inicio"; // inicio | jugando | final
+let bloqueado={melee:false,fruit:false,sword:false,gun:false,race:false};
+let actual={};
+let seleccionPendiente=true;
+
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+
+function mostrar(id,tipo,item){
+ actual[id]=item;
+ document.getElementById(id).innerHTML=`<div class='tipo'>${tipo}</div><h3>${item.name}</h3><img src='${item.img}'>`;
+}
+
+function seleccionar(tipo){
+ if(estado!=="jugando")return;
+ if(bloqueado[tipo])return;
+ if(!seleccionPendiente)return;
+
+ bloqueado[tipo]=true;
+ seleccionPendiente=false;
+ document.getElementById(tipo).classList.add('locked');
+ girar();
+}
+
+function girar(){
+ setTimeout(()=>{
+  if(!bloqueado.melee)mostrar('melee','MELEE',pick(melees));
+  if(!bloqueado.fruit)mostrar('fruit','FRUTA',pick(fruits));
+  if(!bloqueado.sword)mostrar('sword','ESPADA',pick(swords));
+  if(!bloqueado.gun)mostrar('gun','ARMA',pick(guns));
+  if(!bloqueado.race)mostrar('race','RAZA V4',pick(races));
+  seleccionPendiente=true;
+  if(Object.values(bloqueado).every(v=>v))finalizar();
+ },400);
+}
+
+function accion(){
+ if(estado==="inicio"){
+  estado="jugando";
+  document.getElementById('btn').innerText="RESET";
+  document.getElementById('estado').innerText="Selecciona un atributo";
+  girar();
+ } else {
+  location.reload();
+ }
+}
+
+function finalizar(){
+ estado="final";
+ document.getElementById('estado').innerText="Build final generada";
+ let total=0;for(let k in actual)total+=actual[k].b;
+ document.getElementById('resultado').style.display="block";
+ document.getElementById('resultado').innerText=`BOUNTY TOTAL DE LA BUILD: ${total.toLocaleString()}`;
+}
+
+window.addEventListener('load', () => {
+  const creditos = document.getElementById('creditos');
+  setTimeout(() => {
+    creditos.style.transition = "opacity 1s";
+    creditos.style.opacity = 0;
+    setTimeout(() => creditos.style.display = "none", 1000);
+  }, 3000);
+});
+
+const melees=[
+  {name:"Combat",b:300000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/7/7c/Combat.png/revision/latest?cb=20251225111312"},
+  {name:"Dark Step",b:400000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/3/39/Dark_Step.png/revision/latest?cb=20220228201917"},
+  {name:"Water Kung Fu",b:600000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/8f/Water_Kung_Fu.png/revision/latest?cb=20220228233922"},
+  {name:"Electric",b:500000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/2/2f/Electric.png/revision/latest?cb=20220228215637"},
+  {name:"Dragon Breath",b:750000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/3/32/Dragon_Breath.png/revision/latest?cb=20220228202047"},
+  {name:"Superhuman",b:1000000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/ad/Superhuman.png/revision/latest?cb=20220228215748"},
+  {name:"Death Step",b:1500000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/89/Death_Step.png/revision/latest?cb=20220228233624"},
+  {name:"Electric Claw",b:3000000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/0/00/Electric_Claw.png/revision/latest?cb=20220228215956"},
+  {name:"Sharkman Karate",b:3500000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/b/b3/Sharkman_Karate.png/revision/latest?cb=20220228233224"},
+  {name:"Dragon Talon",b:4000000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/e/e9/Dragon_Talon.png/revision/latest?cb=20220228215538"},
+  {name:"Sanguine Art",b:5000000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/83/Sanguine_Art.png/revision/latest?cb=20231025151119"},
+  {name:"Godhuman",b:5000000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/4/41/Godhuman.png/revision/latest?cb=20220913103851"}
+];
+
+const fruits = [
+  // 🔹 Base
+  {name:"Spring", b:600000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/9/9c/Spring.png/revision/latest?cb=20220228200326" },
+  {name:"Spike", b:600000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/d/de/Spike.png/revision/latest?cb=20241215195702" },
+  {name:"Spin", b:650000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/4/45/Spin.png/revision/latest?cb=20231106233530" },
+  {name:"Rocket", b:700000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/f/fb/Rocket.png/revision/latest?cb=20231025151449" },
+  {name:"Bomb", b:900000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/3/3b/Bomb.png/revision/latest?cb=20220228200530" },
+  {name:"Smoke", b:900000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/c/c6/Smoke.png/revision/latest?cb=20220228200228" },
+  {name:"Dark (Unawakened)", b:900000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/0/0e/Dark.png/revision/latest?cb=20241215195905" },
+  {name:"Magma (Unawakened)", b:1000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/f/f9/Magma.png/revision/latest?cb=20241215195626" },
+  {name:"Quake (Unawakened)", b:1100000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/b/b4/Quake.png/revision/latest?cb=20241215195532" },
+  {name:"Flame (Unawakened)", b:1200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/9/9f/Flame.png/revision/latest?cb=20241215195738" },
+  {name:"Sand (Unawakened)", b:1200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/a7/Sand.png/revision/latest?cb=20220228200150" },
+  {name:"Eagle (Unawekened)", b:1200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/8b/Eagle.png/revision/latest?cb=20250418030854" },
+  {name:"Phoenix (Unawakened)", b:1200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/c/c1/Phoenix.png/revision/latest?cb=20220228200053" },
+  {name:"Light (Unawakened)", b:1500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/a6/Light.png/revision/latest?cb=20241215195403" },
+  {name:"Spider (Unawakened)", b:1500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/84/Spider.png/revision/latest?cb=20230225172239" },
+  {name:"Blade", b:1700000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/ad/Blade.png/revision/latest?cb=20241231125837" },
+  {name:"Rubber", b:1700000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/8e/Rubber.png/revision/latest?cb=20231027040620" },
+  {name:"Ice (Unawakened)", b:1900000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/7/77/Ice.png/revision/latest?cb=20220228195831" },
+  {name:"Ghost", b:2100000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/ab/Ghost.png/revision/latest?cb=20231103021436" },
+  {name:"Sound", b:2100000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/e/ee/Sound.png/revision/latest?cb=20231027080952" },
+  {name:"Creation", b:2100000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/4/45/Creation.png/revision/latest?cb=20250418030855" },
+  {name:"Love", b:2500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/ac/Love.png/revision/latest?cb=20220228195938" },
+  {name:"Dough (Unawakened)", b:2500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/0/08/Dough.png/revision/latest?cb=20241215200019" },
+  {name:"Buddha (Unawakened)", b:2500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/88/Buddha.png/revision/latest?cb=20241215200050" },
+  {name:"Pain (Unawakened)", b:3000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/5/54/Pain.png/revision/latest?cb=20250906183017" },
+  {name:"Blizzard", b:3000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/3/39/Blizzard.png/revision/latest?cb=20230404120544" },
+  {name:"Gravity (Unawakened)", b:3000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/1/1a/Gravity.png/revision/latest?cb=20250418030954" },
+  {name:"Diamond", b:3000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/e/ea/Diamond.png/revision/latest?cb=20241215195944" },
+  {name:"Shadow", b:3000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/8e/Shadow.png/revision/latest?cb=20231102205642" },
+  {name:"Lightning (Unawakened)", b:3500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/86/Lightning.png/revision/latest?cb=20241215195447" },
+  {name:"Venom", b:3500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/8a/Venom.png/revision/latest?cb=20220228200352" },
+  {name:"Mammoth", b:3500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/a5/Mammoth.png/revision/latest?cb=20231025103552" },
+  {name:"Spirit", b:4000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/9/97/Spirit.png/revision/latest?cb=20230404120635" },
+  {name:"T-Rex", b:4000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/f/f8/T-Rex.png/revision/latest?cb=20231225184743" },
+  {name:"Control (Unawakened)", b:4250000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/e/e5/Control.png/revision/latest?cb=20251223170013" },
+  {name:"Tiger", b:4250000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/ae/Tiger.png/revision/latest?cb=20251031162046" },
+  {name:"Yeti", b:4500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/7/7d/Yeti.png/revision/latest?cb=20250907144703" },
+  {name:"Gas", b:4500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/7/78/Gas.png/revision/latest?cb=20241215063640" },
+  {name:"Portal", b:5000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/9/9d/Portal.png/revision/latest?cb=20230404120616" },
+  {name:"Kitsune", b:5000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/0/04/Kitsune.png/revision/latest?cb=20240511195324" },
+  {name:"Dragon (East)", b:5000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/3/37/Dragon_%28East%29.png/revision/latest?cb=20241231011003" },
+  {name:"Dragon (West)", b:5000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/aa/Dragon_%28West%29.png/revision/latest?cb=20241215200412" },
+
+  // 🔸 Awakened / Mutations
+  {name:"Flame (Awakened)", b:2200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/9/9f/Flame.png/revision/latest?cb=20241215195738" },
+  {name:"Dark (Awakened)", b:2200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/0/0e/Dark.png/revision/latest?cb=20241215195905" },
+  {name:"Eagle (Awekened)", b:2200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/8b/Eagle.png/revision/latest?cb=20250418030854" },
+  {name:"Phoenix (Awakened)", b:2200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/c/c1/Phoenix.png/revision/latest?cb=20220228200053" },
+  {name:"Spider (Awakened)", b:2200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/84/Spider.png/revision/latest?cb=20230225172239" },
+  {name:"Sand (Awakened)", b:2400000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/a7/Sand.png/revision/latest?cb=20220228200150" },
+  {name:"Quake (Awakened)", b:2400000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/b/b4/Quake.png/revision/latest?cb=20241215195532" },
+  {name:"Magma (Awakened)", b:2800000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/f/f9/Magma.png/revision/latest?cb=20241215195626" },
+  {name:"Ice (Awakened)", b:3500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/7/77/Ice.png/revision/latest?cb=20220228195831" },
+  {name:"Light (Awakened)", b:3500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/a6/Light.png/revision/latest?cb=20241215195403" },
+  {name:"Gravity (Awakened)", b:3750000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/1/1a/Gravity.png/revision/latest?cb=20250418030954" },
+  {name:"Pain (Awakened)", b:4000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/5/54/Pain.png/revision/latest?cb=20250906183017" },
+  {name:"Dough (Awakened)", b:4250000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/0/08/Dough.png/revision/latest?cb=20241215200019" },
+  {name:"Werewolf (Tiger)", b:4500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/f/f5/Werewolf.png/revision/latest?cb=20251031162113" },
+  {name:"Buddha (Awakened)", b:4500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/88/Buddha.png/revision/latest?cb=20241215200050" },
+  {name:"Control (Awakened)", b:5000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/e/e5/Control.png/revision/latest?cb=20251223170013" },
+  {name:"Lightning (Awakened)", b:5000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/86/Lightning.png/revision/latest?cb=20241215195447" },
+  {name:"Empyrean (Kitsune)", b:5000000, img:"https://i.ibb.co/ZRL8F9ML/Dise-o-sin-t-tulo-6.png" },
+];
+
+const swords = [
+  {name:"Cutlass", b:500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/1/1e/Cutlass.png/revision/latest?cb=20241223061505" },
+  {name:"Katana", b:525000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/e/e9/Katana.png/revision/latest?cb=20241223061522" },
+  {name:"Dual Katana", b:550000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/9/90/Dual_Katana.png/revision/latest?cb=20241223061511" },
+  {name:"Iron Mace", b:600000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/e/ee/Iron_Mace.png/revision/latest?cb=20241223032617" },
+  {name:"Shark Saw", b:650000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/e/ea/Shark_Saw.png/revision/latest?cb=20241223032633" },
+  {name:"Triple Katana", b:700000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/3/34/Triple_Katana.png/revision/latest?cb=20241223061548" },
+  {name:"Dual-Headed Blade", b:750000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/6/69/Dual-Headed_Blade.png/revision/latest?cb=20241223032343" },
+  {name:"Pipe", b:800000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/b/b9/Pipe.png/revision/latest?cb=20241223032506" },
+  {name:"Trident", b:850000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/9/9a/Trident.png/revision/latest?cb=20241223032713" },
+  {name:"Wardens Sword", b:900000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/0/09/Wardens_Sword.png/revision/latest?cb=20241223032757" },
+  {name:"Longsword", b:1000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/3/34/Longsword.png/revision/latest?cb=20241223032424" },
+  {name:"Soul Cane", b:1200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/4/40/Soul_Cane.png/revision/latest?cb=20241223032659" },
+  {name:"Pole (1st Form)", b:1200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/b/b0/Pole_%281st_Form%29.png/revision/latest?cb=20241223032519" },
+  {name:"Flail", b:1200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/1/1d/Flail.png/revision/latest?cb=20241223032358" },
+  {name:"Koko", b:1200000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/f/f0/Koko.png/revision/latest?cb=20241223061527" },
+  {name:"Bisento", b:1500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/3/31/Bisento.png/revision/latest?cb=20241223032227" },
+  {name:"Midnight Blade", b:1500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/b/bf/Midnight_Blade.png/revision/latest?cb=20241223032439" },
+  {name:"Pole (2nd Form)", b:1750000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/6/66/Pole_%282nd_Form%29.png/revision/latest?cb=20241223032534" },
+  {name:"Oroshi", b:1750000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/7/72/Oroshi.png/revision/latest?cb=20250603090340" },
+  {name:"Saishi", b:1750000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/f/f7/Saishi.png/revision/latest?cb=20241223032618" },
+  {name:"Shizu", b:1750000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/4/48/Shizu.png/revision/latest?cb=20241223032646" },
+  {name:"Canvander", b:2000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/1/1c/Canvander.png/revision/latest?cb=20241223061500" },
+  {name:"Dark Dagger", b:2000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/f/f8/Dark_Dagger.png/revision/latest?cb=20241223032258" },
+  {name:"Rengoku", b:2250000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/7/7d/Rengoku.png/revision/latest?cb=20241223032548" },
+  {name:"Buddy Sword", b:2250000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/6/62/Buddy_Sword.png/revision/latest?cb=20241223061455" },
+  {name:"Saber", b:3000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/2/23/Saber.png/revision/latest?cb=20241223032603" },
+  {name:"Twin Hooks", b:3250000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/1/1d/Twin_Hooks.png/revision/latest?cb=20241223061553"},
+  {name:"Dragon Trident", b:3500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/0/09/Dragon_Trident.png/revision/latest?cb=20241223032313" },
+  {name:"Tushita", b:3500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/0/0e/Tushita.png/revision/latest?cb=20241223032742" },
+  {name:"Yama", b:3500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/b/ba/Yama.png/revision/latest?cb=20241223032812" },
+  {name:"Fox Lamp", b:3750000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/f/ff/Fox_Lamp.png/revision/latest?cb=20241223051549" },
+  {name:"Hallow Scythe", b:3750000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/c/c5/Hallow_Scythe.png/revision/latest?cb=20241223061516" },
+  {name:"Spikey Trident", b:4000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/3/3f/Spikey_Trident.png/revision/latest?cb=20241223061542" },
+  {name:"Shark Anchor", b:4250000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/e/ee/Shark_Anchor.png/revision/latest?cb=20241223143202" },
+  {name:"Dark Blade", b:4500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/a0/Dark_Blade.png/revision/latest/scale-to-width-down/1000?cb=20241223051659" },
+  {name:"Dragonheart", b:4500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/7/74/Dragonheart.png/revision/latest?cb=20241223032328" },
+  {name:"Gravity Blade", b:4500000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/c/c4/Gravity_Blade.png/revision/latest?cb=20241223032412" },
+  {name:"True Triple Katana", b:5000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/b/b2/True_Triple_Katana.png/revision/latest?cb=20241223032727" },
+  {name:"Cursed Dual Katana", b:5000000, img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/7/74/Cursed_Dual_Katana.png/revision/latest?cb=20241223032242" }
+];
+
+const guns=[
+  {name:"Slingshot",b:500000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/3/3f/Slingshot.png/revision/latest?cb=20241223023755"},
+  {name:"Flintlock",b:550000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/5/5b/Flintlock.png/revision/latest?cb=20241223023624"},
+  {name:"Musket",b:600000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/2/2b/Musket.png/revision/latest?cb=20241223023710"},
+  {name:"Refined Slingshot",b:700000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/8b/Refined_Slingshot.png/revision/latest?cb=20241223053330"},
+  {name:"Cannon",b:900000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/a6/Cannon.png/revision/latest?cb=20241223023539"},
+  {name:"Bizarre Rifle",b:1250000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/4/4c/Bizarre_Revolver.png/revision/latest?cb=20241223023523"},
+  {name:"Magma Blaster",b:1500000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/1/10/Magma_Blaster.png/revision/latest?cb=20241223023655"},
+  {name:"Bazooka",b:1750000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/3/3f/Bazooka.png/revision/latest?cb=20241223023357"},
+  {name:"Dual Flintlock",b:2000000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/e/ee/Dual_Flintlock.png/revision/latest?cb=20241223023609"},
+  {name:"Acidum Rifle",b:2500000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/c/c2/Acidum_Rifle.png/revision/latest?cb=20241223023342"},
+  {name:"Venom Bow",b:3250000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/f/f9/Venom_Bow.png/revision/latest?cb=20241223023810"},
+  {name:"Kabucha",b:4500000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/b/bb/Kabucha.png/revision/latest?cb=20241223023639"},
+  {name:"Dragonstorm",b:5000000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/5/56/Dragonstorm.png/revision/latest?cb=20241223023554"},
+  {name:"Skull Guitar",b:5000000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/e/e3/Skull_Guitar.png/revision/latest?cb=20241223023740"}
+];
+
+const races=[
+  {name:"Sin Raza V4",b:600000,img:"https://images.vexels.com/media/users/3/340644/isolated/preview/e582116e90ff33f47a38ba20aaf82ecc-x-roja-en-un-circulo.png"},
+  {name:"Mink V4",b:3500000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/f/fd/Rabbit.png/revision/latest?cb=20240407190116"},
+  {name:"Shark V4",b:5500000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/1/14/Shark.png/revision/latest?cb=20240407190116"},
+  {name:"Human V4",b:7500000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/6/6e/Human.png/revision/latest?cb=20240407190115"},
+  {name:"Angel V4",b:9000000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/8/83/Angel.png/revision/latest?cb=20240407190112"},
+  {name:"Cyborg V4",b:1000000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/a/a3/Cyborg.png/revision/latest?cb=20240407190113"},
+  {name:"Draco V4",b:10000000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/b/b5/Draco.png/revision/latest?cb=20241216212032"},
+  {name:"Ghoul V4",b:10000000,img:"https://static.wikia.nocookie.net/roblox-blox-piece/images/e/e3/Ghoul.png/revision/latest?cb=20240407190114"}
+];
+</script>
+</body>
+</html>
