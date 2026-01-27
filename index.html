@@ -150,8 +150,8 @@ const melees=[
   {name:"Electric",b:500000,img:"https://i.ibb.co/Xx04vhLY/Image-To-Stl-com-Electric.png"}, 
   {name:"Water Kung Fu",b:600000,img:"https://i.ibb.co/FLGskQgL/Image-To-Stl-com-Water-Kung-Fu.png"},
   {name:"Dragon Breath",b:750000,img:"https://i.ibb.co/vCGk7ddH/Image-To-Stl-com-Dragon-Breath.png"},
-  {name:"Superhuman",b:1000000,img:"https://i.ibb.co/7dBgsK7S/Image-To-Stl-com-Superhuman.png"},
-  {name:"Death Step",b:1500000,img:"https://i.ibb.co/67WkMx2D/Image-To-Stl-com-Death-Step.png"},
+  {name:"Death Step",b:1250000,img:"https://i.ibb.co/67WkMx2D/Image-To-Stl-com-Death-Step.png"},
+  {name:"Superhuman",b:2000000,img:"https://i.ibb.co/7dBgsK7S/Image-To-Stl-com-Superhuman.png"},
   {name:"Electric Claw",b:3000000,img:"https://i.ibb.co/G3CQG9Ts/Image-To-Stl-com-Electric-Claw.png"},
   {name:"Sharkman Karate",b:3500000,img:"https://i.ibb.co/Lzbsg23h/Image-To-Stl-com-Sharkman-Karate.png"},
   {name:"Dragon Talon",b:4000000,img:"https://i.ibb.co/84fw6Q9g/Image-To-Stl-com-Dragon-Talon.png"},
@@ -160,70 +160,51 @@ const melees=[
 ];
 
 const fruits = [
-  // 🔹 Base
-  {name:"Sin Fruta",b:600000,img:"https://i.ibb.co/j9p0V3BD/Sin-Fruta.png"},    
-  {name:"Spring", b:625000, img:"https://i.ibb.co/8D2M8nyC/Spring.png" },
-  {name:"Spike", b:625000, img:"https://i.ibb.co/Fq0sMVYR/Spike.png" },
-  {name:"Spin", b:650000, img:"https://i.ibb.co/q3tYXhZN/Spin.png" },
-  {name:"Rocket", b:700000, img:"https://i.ibb.co/C5cbSmZP/Rocket.png" },
-  {name:"Bomb", b:900000, img:"https://i.ibb.co/RTLhvNdk/Bomb.png" },
-  {name:"Smoke", b:900000, img:"https://i.ibb.co/35jjktq4/Smoke.png" },
-  {name:"Dark (UNAWK)", b:900000, img:"https://i.ibb.co/1YXrgQQp/Dark.png" },
-  {name:"Magma (UNAWK)", b:1000000, img:"https://i.ibb.co/XZVNYwjf/Magma.png" },
-  {name:"Quake (UNAWK)", b:1100000, img:"https://i.ibb.co/35vtDvQS/Quake.png" },
-  {name:"Flame (UNAWK)", b:1200000, img:"https://i.ibb.co/99KmMhrk/Flame.png" },
-  {name:"Sand (UNAWK)", b:1200000, img:"https://i.ibb.co/JRBrsfdL/Sand.png" },
-  {name:"Eagle (UNAWK)", b:1200000, img:"https://i.ibb.co/mFF9qwB6/Eagle.png" },
-  {name:"Phoenix (UNAWK)", b:1200000, img:"https://i.ibb.co/8gSv63S4/Phoenix.png" },
-  {name:"Light (UNAWK)", b:1500000, img:"https://i.ibb.co/JWL0L3Ls/Light.png" },
-  {name:"Spider (UNAWK", b:1500000, img:"https://i.ibb.co/WvpKnnj7/Spider.png" },
-  {name:"Blade", b:1700000, img:"https://i.ibb.co/QvK59DDY/Blade.png" },
-  {name:"Rubber", b:1700000, img:"https://i.ibb.co/3yMzyxj4/Rubber.png" },
-  {name:"Ice (UNAWK)", b:1900000, img:"https://i.ibb.co/5X0s9dmy/Ice.png" },
-  {name:"Ghost", b:2100000, img:"https://i.ibb.co/YBmQXjPr/Ghost.png" },
-  {name:"Sound", b:2100000, img:"https://i.ibb.co/ymdrcMhd/Sound.png" },
-  {name:"Creation", b:2100000, img:"https://i.ibb.co/32f4DGP/Creation.png" },
-  {name:"Love", b:2500000, img:"https://i.ibb.co/0VX46XKM/Love.png" },
-  {name:"Dough (UNAWK)", b:2500000, img:"https://i.ibb.co/q3xXPNjL/Dough.png" },
-  {name:"Buddha (UNAWK)", b:2500000, img:"https://i.ibb.co/W4bWDHnL/Buddha.png" },
-  {name:"Pain (UNAWK)", b:3000000, img:"https://i.ibb.co/zhsW8VxX/Pain.png" },
-  {name:"Blizzard", b:3000000, img:"https://i.ibb.co/kg9jYtFW/Blizzard.png" },
-  {name:"Gravity (UNAWK)", b:3000000, img:"https://i.ibb.co/Q3SV7R9m/Gravity.png" },
-  {name:"Diamond", b:3000000, img:"https://i.ibb.co/FLwxG7Jj/Diamond.png" },
-  {name:"Shadow", b:3000000, img:"https://i.ibb.co/8v9d2gM/Shadow.png" },
-  {name:"Lightning (UNAWK", b:3500000, img:"https://i.ibb.co/5gpSr3K2/Lightning.png" },
-  {name:"Venom", b:3500000, img:"https://i.ibb.co/dJc72gJH/Venom.png" },
-  {name:"Mammoth", b:3500000, img:"https://i.ibb.co/zVp6BQYh/Mammoth.png" },
-  {name:"Spirit", b:4000000, img:"https://i.ibb.co/jZkkFn9r/Spirit.png" },
-  {name:"T-Rex", b:4000000, img:"https://i.ibb.co/S73cGq9P/T-Rex.png" },
-  {name:"Control (UNAWK)", b:4250000, img:"https://i.ibb.co/9krJy8YQ/Control.png" },
-  {name:"Tiger", b:4250000, img:"https://i.ibb.co/N2qD20r9/Tiger.png" },
-  {name:"Yeti", b:4500000, img:"https://i.ibb.co/605LXMHB/Yeti.png" },
-  {name:"Gas", b:4500000, img:"https://i.ibb.co/msjdFRN/Gas.png" },
-  {name:"Portal", b:5000000, img:"https://i.ibb.co/kss2tcGh/Portal.png" },
-  {name:"Kitsune", b:5000000, img:"https://i.ibb.co/xqSpzFWk/Kitsune.png" },
-  {name:"Dragon (East)", b:5000000, img:"https://i.ibb.co/Q7WvCRwg/Dragon-East.png" },
-  {name:"Dragon (West)", b:5000000, img:"https://i.ibb.co/3y8qRg5Q/Dragon-West.png" },
-
-  // 🔸 Awakened / Mutations
-  {name:"Flame (AWK)", b:2200000, img:"https://i.ibb.co/99KmMhrk/Flame.png" },
-  {name:"Dark (AWK)", b:2200000, img:"https://i.ibb.co/1YXrgQQp/Dark.png" },
-  {name:"Eagle (AWK)", b:2200000, img:"https://i.ibb.co/mFF9qwB6/Eagle.png" },
-  {name:"Phoenix (AWK)", b:2200000, img:"https://i.ibb.co/8gSv63S4/Phoenix.png" },
-  {name:"Spider (AWK)", b:2200000, img:"https://i.ibb.co/WvpKnnj7/Spider.png" },
-  {name:"Sand (AWK)", b:2400000, img:"https://i.ibb.co/JRBrsfdL/Sand.png" },
-  {name:"Quake (AWK)", b:2400000, img:"https://i.ibb.co/35vtDvQS/Quake.png" },
-  {name:"Magma (AWK)", b:2800000, img:"https://i.ibb.co/XZVNYwjf/Magma.png" },
-  {name:"Ice (AWK)", b:3500000, img:"https://i.ibb.co/5X0s9dmy/Ice.png" },
-  {name:"Light (AWK)", b:3500000, img:"https://i.ibb.co/JWL0L3Ls/Light.png" },
-  {name:"Gravity (AWK)", b:4000000, img:"https://i.ibb.co/Q3SV7R9m/Gravity.png" },
-  {name:"Pain (AWK)", b:4250000, img:"https://i.ibb.co/zhsW8VxX/Pain.png" },
-  {name:"Dough (AWK)", b:4250000, img:"https://i.ibb.co/q3xXPNjL/Dough.png" },
-  {name:"Werewolf (Tiger)", b:4500000, img:"https://i.ibb.co/Kx4BqWd5/Werewolf-Tiger.png" },
-  {name:"Buddha (AWK)", b:4500000, img:"https://i.ibb.co/W4bWDHnL/Buddha.png" },
-  {name:"Control (AWK)", b:5000000, img:"https://i.ibb.co/9krJy8YQ/Control.png" },
-  {name:"Lightning (AWK)", b:5000000, img:"https://i.ibb.co/5gpSr3K2/Lightning.png" },
-  {name:"Empyrean (Kitsune)", b:5000000, img:"https://i.ibb.co/mr8VgrpJ/Empyrean-Kitsune.png" },
+  {name:"SinFruta", b:600000, img:"https://i.ibb.co/j9p0V3BD/Sin-Fruta.png"},
+  {name:"Spring", b:625000, img:"https://i.ibb.co/8D2M8nyC/Spring.png"},
+  {name:"Spike", b:625000, img:"https://i.ibb.co/Fq0sMVYR/Spike.png"},
+  {name:"Spin", b:650000, img:"https://i.ibb.co/q3tYXhZN/Spin.png"},
+  {name:"Rocket", b:700000, img:"https://i.ibb.co/C5cbSmZP/Rocket.png"},
+  {name:"Bomb", b:900000, img:"https://i.ibb.co/RTLhvNdk/Bomb.png"},
+  {name:"Smoke", b:900000, img:"https://i.ibb.co/35jjktq4/Smoke.png"},
+  {name:"Blade", b:1250000, img:"https://i.ibb.co/QvK59DDY/Blade.png"},
+  {name:"Rubber", b:1250000, img:"https://i.ibb.co/3yMzyxj4/Rubber.png"},
+  {name:"Ghost", b:1500000, img:"https://i.ibb.co/YBmQXjPr/Ghost.png"},
+  {name:"Sound", b:1750000, img:"https://i.ibb.co/ymdrcMhd/Sound.png"},
+  {name:"Creation", b:1750000, img:"https://i.ibb.co/32f4DGP/Creation.png"},
+  {name:"Dark", b:2000000, img:"https://i.ibb.co/1YXrgQQp/Dark.png"},
+  {name:"Flame", b:2000000, img:"https://i.ibb.co/99KmMhrk/Flame.png"},
+  {name:"Eagle", b:2000000, img:"https://i.ibb.co/mFF9qwB6/Eagle.png"},
+  {name:"Phoenix", b:2000000, img:"https://i.ibb.co/8gSv63S4/Phoenix.png"},
+  {name:"Spider", b:2250000, img:"https://i.ibb.co/WvpKnnj7/Spider.png"},
+  {name:"Sand", b:2400000, img:"https://i.ibb.co/JRBrsfdL/Sand.png"},
+  {name:"Quake", b:2500000, img:"https://i.ibb.co/35vtDvQS/Quake.png"},
+  {name:"Love", b:2500000, img:"https://i.ibb.co/0VX46XKM/Love.png"},
+  {name:"Magma", b:2800000, img:"https://i.ibb.co/XZVNYwjf/Magma.png"},
+  {name:"Blizzard", b:3000000, img:"https://i.ibb.co/kg9jYtFW/Blizzard.png"},
+  {name:"Diamond", b:3000000, img:"https://i.ibb.co/FLwxG7Jj/Diamond.png"},
+  {name:"Shadow", b:3000000, img:"https://i.ibb.co/8v9d2gM/Shadow.png"},
+  {name:"Ice", b:3500000, img:"https://i.ibb.co/5X0s9dmy/Ice.png"},
+  {name:"Light", b:3500000, img:"https://i.ibb.co/JWL0L3Ls/Light.png"},
+  {name:"Venom", b:3500000, img:"https://i.ibb.co/dJc72gJH/Venom.png"},
+  {name:"Mammoth", b:3500000, img:"https://i.ibb.co/zVp6BQYh/Mammoth.png"},
+  {name:"Spirit", b:4000000, img:"https://i.ibb.co/jZkkFn9r/Spirit.png"},
+  {name:"T-Rex", b:4000000, img:"https://i.ibb.co/S73cGq9P/T-Rex.png"},
+  {name:"Gravity", b:4000000, img:"https://i.ibb.co/Q3SV7R9m/Gravity.png"},
+  {name:"Pain", b:4250000, img:"https://i.ibb.co/zhsW8VxX/Pain.png"},
+  {name:"Dough", b:4250000, img:"https://i.ibb.co/q3xXPNjL/Dough.png"},
+  {name:"Tiger", b:4250000, img:"https://i.ibb.co/N2qD20r9/Tiger.png"},
+  {name:"Yeti", b:4500000, img:"https://i.ibb.co/605LXMHB/Yeti.png"},
+  {name:"Gas", b:4500000, img:"https://i.ibb.co/msjdFRN/Gas.png"},
+  {name:"Buddha", b:4500000, img:"https://i.ibb.co/W4bWDHnL/Buddha.png"},
+  {name:"Werewolf (Tiger)", b:4500000, img:"https://i.ibb.co/Kx4BqWd5/Werewolf-Tiger.png"},
+  {name:"Control", b:4750000, img:"https://i.ibb.co/9krJy8YQ/Control.png"},
+  {name:"Lightning", b:4750000, img:"https://i.ibb.co/5gpSr3K2/Lightning.png"},
+  {name:"Portal", b:5000000, img:"https://i.ibb.co/kss2tcGh/Portal.png"},
+  {name:"Kitsune", b:5000000, img:"https://i.ibb.co/xqSpzFWk/Kitsune.png"},
+  {name:"Empyrean (Kitsune)", b:5000000, img:"https://i.ibb.co/mr8VgrpJ/Empyrean-Kitsune.png"},
+  {name:"Dragon (East)", b:5000000, img:"https://i.ibb.co/Q7WvCRwg/Dragon-East.png"},
+  {name:"Dragon (West)", b:5000000, img:"https://i.ibb.co/3y8qRg5Q/Dragon-West.png"},
 ];
 
 const swords = [
@@ -239,12 +220,12 @@ const swords = [
   {name:"Trident", b:850000, img:"https://i.ibb.co/2012cqFS/Trident.png" },
   {name:"Warden's Sword", b:900000, img:"https://i.ibb.co/VcKpQFtS/Wardens-Sword.png" },
   {name:"Longsword", b:1000000, img:"https://i.ibb.co/LDB992hV/Longsword.png" },
-  {name:"Pole (Primera Forma)", b:1200000, img:"https://i.ibb.co/hRWBVNBR/Pole-1st-Form.png" },
+  {name:"Pole (1ra Forma)", b:1200000, img:"https://i.ibb.co/hRWBVNBR/Pole-1st-Form.png" },
   {name:"Flail", b:1200000, img:"https://i.ibb.co/M52PY7KJ/Flail.png" },
   {name:"Koko", b:1200000, img:"https://i.ibb.co/0VjsTbzd/Koko.png" },
   {name:"Bisento", b:1500000, img:"https://i.ibb.co/pHGNG4g/Bisento.png" },
   {name:"Soul Cane", b:1750000, img:"https://i.ibb.co/hxqGZcVM/Soul-Cane.png" },  
-  {name:"Pole (Segunda Forma)", b:1750000, img:"https://i.ibb.co/21gvjJWq/Pole-2nd-Form.png" },
+  {name:"Pole (2da Forma)", b:1750000, img:"https://i.ibb.co/21gvjJWq/Pole-2nd-Form.png" },
   {name:"Oroshi", b:1750000, img:"https://i.ibb.co/xtmz6mvt/Oroshi.png" },
   {name:"Saishi", b:1750000, img:"https://i.ibb.co/H5j1sn8/Saishi.png" },
   {name:"Shizu", b:1750000, img:"https://i.ibb.co/9mrsR0yq/Shizu.png" },
@@ -292,7 +273,7 @@ const races=[
   {name:"Rabbit V4",b:450000,img:"https://i.ibb.co/7dHf7JqF/Rabbit.png"},
   {name:"Shark V4",b:6250000,img:"https://i.ibb.co/FqY7H74w/Shark.png"},
   {name:"Human V4",b:7750000,img:"https://i.ibb.co/Hv1h52n/Human.png"},
-  {name:"Angel V4",b:8500000,img:"https://i.ibb.co/TqRMX9S5/Angel.png"},
+  {name:"Angel V4",b:8000000,img:"https://i.ibb.co/TqRMX9S5/Angel.png"},
   {name:"Cyborg V4",b:10000000,img:"https://i.ibb.co/8DBGr3Tr/Cyborg.png"},
   {name:"Draco V4",b:10000000,img:"https://i.ibb.co/4ZDMKJjR/Draco.png"},
   {name:"Ghoul V4",b:10000000,img:"https://i.ibb.co/0pndgNLW/Ghoul.png"}
@@ -300,19 +281,3 @@ const races=[
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
