@@ -88,6 +88,51 @@ let seleccionPendiente=true;
 
 function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
 
+let ultimoElegido = {melee:null, fruit:null, sword:null, gun:null, race:null};
+
+function girarAnimado(id, tipo, lista, callback){
+  let vueltas = 0;
+  let max = 12;
+  let delay = 60;
+
+  function loop(){
+    let elegido;
+    do {
+      elegido = pick(lista);
+    } while(elegido === ultimoElegido[id]);
+
+    ultimoElegido[id] = elegido;
+
+try {
+  sonidoGiro.currentTime = 0;
+  sonidoGiro.play();
+} catch(e){
+  console.log("Sonido bloqueado hasta interacción");
+}
+
+
+    document.getElementById(id).innerHTML =
+      `<div class='tipo'>${tipo}</div>
+       <h3>${elegido.name}</h3>
+       <img src='${elegido.img}' style="opacity:.85;transform:scale(.97)">`;
+
+    vueltas++;
+    delay += 20;
+
+    if(vueltas < max){
+      setTimeout(loop, delay);
+    } else {
+      document.getElementById(id).innerHTML =
+        `<div class='tipo'>${tipo}</div>
+         <h3>${elegido.name}</h3>
+         <img src='${elegido.img}'>`;
+      callback(elegido);
+    }
+  }
+
+  loop();
+}
+
 function mostrar(id,tipo,item){
  actual[id]=item;
  document.getElementById(id).innerHTML=`<div class='tipo'>${tipo}</div><h3>${item.name}</h3><img src='${item.img}'>`;
@@ -106,11 +151,11 @@ function seleccionar(tipo){
 
 function girar(){
  setTimeout(()=>{
-  if(!bloqueado.melee)mostrar('melee','MELEE',pick(melees));
-  if(!bloqueado.fruit)mostrar('fruit','FRUTA',pick(fruits));
-  if(!bloqueado.sword)mostrar('sword','ESPADA',pick(swords));
-  if(!bloqueado.gun)mostrar('gun','ARMA',pick(guns));
-  if(!bloqueado.race)mostrar('race','RAZA V4',pick(races));
+ if(!bloqueado.melee) girarAnimado('melee','MELEE', melees, e=>actual['melee']=e);
+ if(!bloqueado.fruit) girarAnimado('fruit','FRUTA', fruits, e=>actual['fruit']=e);
+ if(!bloqueado.sword) girarAnimado('sword','ESPADA', swords, e=>actual['sword']=e);
+ if(!bloqueado.gun) girarAnimado('gun','ARMA', guns, e=>actual['gun']=e);
+ if(!bloqueado.race) girarAnimado('race','RAZA V4', races, e=>actual['race']=e);
   seleccionPendiente=true;
   if(Object.values(bloqueado).every(v=>v))finalizar();
  },400);
@@ -127,12 +172,62 @@ function accion(){
  }
 }
 
+const sonidoGiro = new Audio("https://assets.mixkit.co/active_storage/sfx/3005/3005-preview.mp3");
+sonidoGiro.preload = "auto";
+
+let sonidoHabilitado = false;
+window.addEventListener('click', () => { sonidoHabilitado = true; }, { once: true });
+
+function girarAnimado(id, tipo, lista, callback){
+  let vueltas = 0;
+  let max = 12;
+  let delay = 60;
+
+  function loop(){
+    let elegido;
+    do {
+      elegido = pick(lista);
+    } while(elegido === ultimoElegido[id]);
+
+    ultimoElegido[id] = elegido;
+
+    if(sonidoHabilitado){
+      try {
+        sonidoGiro.currentTime = 0;
+        sonidoGiro.play();
+      } catch(e){
+        console.log("Error al reproducir sonido:", e);
+      }
+    }
+
+    document.getElementById(id).innerHTML =
+      `<div class='tipo'>${tipo}</div>
+       <h3>${elegido.name}</h3>
+       <img src='${elegido.img}' style="opacity:.85;transform:scale(.97)">`;
+
+    vueltas++;
+    delay += 20;
+
+    if(vueltas < max){
+      setTimeout(loop, delay);
+    } else {
+      document.getElementById(id).innerHTML =
+        `<div class='tipo'>${tipo}</div>
+         <h3>${elegido.name}</h3>
+         <img src='${elegido.img}'>`;
+      callback(elegido);
+    }
+  }
+
+  loop();
+}
+
 function finalizar(){
  estado="final";
  document.getElementById('estado').innerText="Build final generada";
  let total=0;for(let k in actual)total+=actual[k].b;
  document.getElementById('resultado').style.display="block";
- document.getElementById('resultado').innerText=`BOUNTY TOTAL DE LA BUILD: ${total.toLocaleString()}`;
+ document.getElementById('resultado').innerText=`💰 ¡CONSEGUISTE ${total.toLocaleString()} DE BOUNTY! 💰`;
 }
 
 window.addEventListener('load', () => {
@@ -281,4 +376,3 @@ const races=[
 </script>
 </body>
 </html>
-
